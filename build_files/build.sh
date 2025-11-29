@@ -9,8 +9,27 @@ set -ouex pipefail
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
-# this installs a package from fedora repos
+## REPOS
+# Repository to enable audio support on chromebook devices
+dnf5 -y copr enable pvermeer/chromebook-linux-audio 
+
+## NICE-TO-HAVE-PACKAGES
 dnf5 install -y tmux 
+
+## DESKTOP ENVIRONMENT
+# Install XFCE Desktop Environment and a lightweight Display Manager
+dnf5 install -y @xfce-desktop lightdm
+
+## CHROMEBOOK PACKAGES
+# Install Chromebook-specific keyboard configuration for hardware compatibility
+# Note: This package handles function keys, trackpad, and media buttons.
+dnf5 install -y xkeyboard-config-chromebook
+
+# Install chromebook linux audio
+dnf5 install -y chromebook-linux-audio
+
+# 3. Install power and performance optimization tools
+dnf5 install -y tlp tlp-rdw zram-generator
 
 # Use a COPR Example:
 #
@@ -21,4 +40,8 @@ dnf5 install -y tmux
 
 #### Example for enabling a System Unit File
 
+## ENABLE SERVICES
+
+systemctl enable tlp.service
+systemctl enable lightdm.service
 systemctl enable podman.socket
