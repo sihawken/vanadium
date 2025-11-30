@@ -52,6 +52,13 @@ compression-algorithm = lz4
 swap-priority = -1
 EOF
 
+# Create a file to limit streams to 2
+sudo tee /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf > /dev/null <<EOF
+[Service]
+# Set max compression streams to 2 (GalliumOS default)
+ExecStartPost=/bin/bash -c 'echo 2 > /sys/block/zram0/max_comp_streams'
+EOF
+
 # Niceties
 dnf5 install -y fastfetch
 
@@ -61,5 +68,6 @@ dnf5 clean -y all
 # Mask Plymouth Wait Service to prevent conflict/hangs
 systemctl mask plymouth-quit-wait.service
 
+systemctl enable systemd-zram-setup@zram0.service
 systemctl enable tlp.service
 systemctl enable podman.socket
