@@ -60,3 +60,9 @@ dnf5 install -y fastfetch
 
 systemctl enable tlp.service
 systemctl enable podman.socket
+
+# Configure LightDM to use the GTK greeter
+# Without this, LightDM may hang waiting for a greeter that isn't configured
+mkdir -p /etc/lightdm/lightdm.conf.d
+echo "[Seat:*]" > /etc/lightdm/lightdm.conf.d/50-greeter.conf
+echo "greeter-session=lightdm-gtk-greeter" >> /etc/lightdm/lightdm.conf.d/50-greeter.conf
