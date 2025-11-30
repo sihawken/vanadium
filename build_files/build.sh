@@ -18,7 +18,7 @@ dnf5 install -y tmux
 
 ## DESKTOP ENVIRONMENT
 # Install XFCE Desktop Environment and a lightweight Display Manager
-dnf5 install -y @xfce-desktop lightdm
+dnf5 install -y @xfce-desktop lightdm-gtk
 
 ## CHROMEBOOK PACKAGES
 # Install Chromebook-specific keyboard configuration for hardware compatibility
@@ -44,5 +44,4 @@ dnf5 install -y tlp tlp-rdw zram-generator
 ## ENABLE SERVICES
 
 systemctl enable tlp.service
-systemctl enable lightdm.service
 systemctl enable podman.socket
