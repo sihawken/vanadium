@@ -60,6 +60,7 @@ dnf5 clean -y all
 #### Example for enabling a System Unit File
 
 ## ENABLE SERVICES
+systemctl set-default graphical.target
 
 systemctl enable tlp.service
 systemctl enable podman.socket
