@@ -16,6 +16,21 @@ dnf5 -y copr enable pvermeer/chromebook-linux-audio
 dnf5 -y copr enable sunwire/tlpui
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+# Ublue repo
+dnf -y copr enable ublue-os/packages
+dnf -y config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:packages"
+
+## INSTALL UBLUE PACKAGES
+dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
+
+# Swap rpm-ostree with ublue
+if [[ "$(rpm -E %fedora)" -gt 41 ]]; then
+  dnf5 -y copr enable ublue-os/staging
+  dnf5 -y swap --repo='copr:copr.fedorainfracloud.org:ublue-os:staging' \
+    rpm-ostree rpm-ostree
+  dnf5 versionlock add rpm-ostree
+  dnf5 -y copr disable ublue-os/staging
+fi
 
 ## MULTIMEDIA PACKAGES
 dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
@@ -53,17 +68,6 @@ sudo tee /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf > 
 # Set max compression streams to 2 (GalliumOS default)
 ExecStartPost=/bin/bash -c 'echo 2 > /sys/block/zram0/max_comp_streams'
 EOF
-
-## UBLUE OS STUFF
-if [[ "$(rpm -E %fedora)" -gt 41 ]]; then
-  dnf5 -y copr enable ublue-os/staging
-  dnf5 -y swap --repo='copr:copr.fedorainfracloud.org:ublue-os:staging' \
-    rpm-ostree rpm-ostree
-  dnf5 versionlock add rpm-ostree
-  dnf5 -y copr disable ublue-os/staging
-fi
-
-dnf5 install -y ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
 
 # Niceties
 dnf5 install -y fastfetch
