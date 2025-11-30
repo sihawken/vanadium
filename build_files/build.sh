@@ -21,14 +21,6 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
 # dnf5 update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
-## DESKTOP ENVIRONMENT
-# Install XFCE Desktop Environment and a lightweight Display Manager
-dnf5 install -y @xfce-desktop lightdm lightdm-gtk
-# Install XFCE utilities
-dnf5 install -y blueman
-# Install plank
-dnf5 install -y https://github.com/zquestz/plank-reloaded/releases/download/0.11.156/plank-reloaded-0.11.156-1.fc42.x86_64.rpm
-
 ## FONTS
 dnf5 install -y google-noto-sans-fonts google-noto-color-emoji-fonts
 
