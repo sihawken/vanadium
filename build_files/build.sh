@@ -11,27 +11,11 @@ set -ouex pipefail
 
 ## REPOS
 # Repository to enable audio support on chromebook devices
-dnf5 -y copr enable pvermeer/chromebook-linux-audio
+# dnf5 -y copr enable pvermeer/chromebook-linux-audio
 # Repository for TLPUI
 dnf5 -y copr enable sunwire/tlpui
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-## UBLUE PACKAGES
-dnf5 -y copr enable ublue-os/packages
-dnf5 -y install just
-dnf5 -y install --repo='copr:copr.fedorainfracloud.org:ublue-os:packages' ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
-dnf5 versionlock add ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
-dnf5 -y copr disable ublue-os/packages
-
-# Swap rpm-ostree with ublue
-if [[ "$(rpm -E %fedora)" -gt 41 ]]; then
-  dnf5 -y copr enable ublue-os/staging
-  dnf5 -y swap --repo='copr:copr.fedorainfracloud.org:ublue-os:staging' \
-    rpm-ostree rpm-ostree
-  dnf5 versionlock add rpm-ostree
-  dnf5 -y copr disable ublue-os/staging
-fi
 
 ## MULTIMEDIA PACKAGES
 dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
@@ -51,7 +35,7 @@ dnf5 install -y gnome-software
 dnf5 swap -y xkeyboard-config https://github.com/sihawken/xkeyboard-config-galliumos-rpm/releases/download/90dfc85/xkeyboard-config-galliumos-2.44-1.fc42.x86_64.rpm
 
 # Install chromebook linux audio
-dnf5 install -y chromebook-linux-audio
+# dnf5 install -y chromebook-linux-audio
 
 # 3. Install power and performance optimization tools
 dnf5 install -y tlp tlp-rdw tlpui zram-generator
@@ -66,12 +50,12 @@ swap-priority = -1
 EOF
 
 # Create a file to limit streams to 2
-mkdir -p /etc/systemd/system/systemd-zram-setup@zram0.service.d/
-tee /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf > /dev/null <<EOF
-[Service]
-# Set max compression streams to 2 (GalliumOS default)
-ExecStartPost=/bin/bash -c 'echo 2 > /sys/block/zram0/max_comp_streams'
-EOF
+# mkdir -p /etc/systemd/system/systemd-zram-setup@zram0.service.d/
+# tee /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf > /dev/null <<EOF
+# [Service]
+# # Set max compression streams to 2 (GalliumOS default)
+# ExecStartPost=/bin/bash -c 'echo 2 > /sys/block/zram0/max_comp_streams'
+# EOF
 
 # Niceties
 dnf5 install -y fastfetch
@@ -79,20 +63,5 @@ dnf5 install -y fastfetch
 # Clean up dnf cache to reduce image size
 dnf5 clean -y all
 
-# WORKAROUND: Fix bootc lint error caused by ublue-os-signing
-# The package installs policy.json to /usr/etc, which is forbidden in bootc images.
-if [ -f "/usr/etc/containers/policy.json" ]; then
-    echo "Moving /usr/etc/containers/policy.json to /etc/containers/policy.json..."
-    # Ensure the destination directory exists
-    mkdir -p /etc/containers
-    # Move the file, overwriting if necessary (to enforce the ublue policy)
-    mv -f /usr/etc/containers/policy.json /etc/containers/policy.json
-    # Remove the empty directories to satisfy the linter
-    rmdir /usr/etc/containers || true
-    rmdir /usr/etc || true
-fi
-
 systemctl enable tlp.service
 systemctl enable podman.socket
-# Autoupdate
-systemctl enable rpm-ostreed-automatic.timer
