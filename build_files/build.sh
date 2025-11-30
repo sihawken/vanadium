@@ -76,7 +76,18 @@ dnf5 install -y fastfetch
 # Clean up dnf cache to reduce image size
 dnf5 clean -y all
 
-ls -R /usr/etc
+# WORKAROUND: Fix bootc lint error caused by ublue-os-signing
+# The package installs policy.json to /usr/etc, which is forbidden in bootc images.
+if [ -f "/usr/etc/containers/policy.json" ]; then
+    echo "Moving /usr/etc/containers/policy.json to /etc/containers/policy.json..."
+    # Ensure the destination directory exists
+    mkdir -p /etc/containers
+    # Move the file, overwriting if necessary (to enforce the ublue policy)
+    mv -f /usr/etc/containers/policy.json /etc/containers/policy.json
+    # Remove the empty directories to satisfy the linter
+    rmdir /usr/etc/containers || true
+    rmdir /usr/etc || true
+fi
 
 systemctl enable tlp.service
 systemctl enable podman.socket
