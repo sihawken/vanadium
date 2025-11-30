@@ -20,8 +20,69 @@ dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
 # dnf5 update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
 ## DESKTOP ENVIRONMENT
-# Install XFCE Desktop Environment and a lightweight Display Manager
-dnf5 install -y @xfce-desktop lightdm lightdm-gtk
+# Install XFCE Desktop Environment
+dnf5 install -y \
+    NetworkManager-fortisslvpn-gnome \
+    NetworkManager-iodine-gnome \
+    NetworkManager-l2tp-gnome \
+    NetworkManager-libreswan-gnome \
+    NetworkManager-openconnect-gnome \
+    NetworkManager-openvpn-gnome \
+    NetworkManager-pptp-gnome \
+    NetworkManager-ssh-gnome \
+    NetworkManager-sstp-gnome \
+    NetworkManager-strongswan-gnome \
+    NetworkManager-vpnc-gnome \
+    Thunar \
+    abrt-desktop \
+    adwaita-gtk2-theme \
+    adwaita-icon-theme \
+    alsa-utils \
+    blueman \
+    desktop-backgrounds-compat \
+    dnfdragora-updater \
+    firewall-config \
+    gnome-keyring-pam \
+    greybird-dark-theme \
+    greybird-light-theme \
+    greybird-xfce4-notifyd-theme \
+    greybird-xfwm4-theme \
+    gtk-xfce-engine \
+    gvfs \
+    gvfs-archive \
+    gvfs-mtp \
+    initial-setup-gui \
+    lightdm-gtk \
+    mint-y-theme \
+    network-manager-applet \
+    nm-connection-editor \
+    openssh-askpass \
+    thunar-archive-plugin \
+    thunar-media-tags-plugin \
+    thunar-volman \
+    tumbler \
+    vim-enhanced \
+    xdg-user-dirs-gtk \
+    xfce4-about \
+    xfce4-appfinder \
+    xfce4-datetime-plugin \
+    xfce4-panel \
+    xfce4-panel-profiles \
+    xfce4-places-plugin \
+    xfce4-power-manager \
+    xfce4-pulseaudio-plugin \
+    xfce4-screensaver \
+    xfce4-screenshooter-plugin \
+    xfce4-session \
+    xfce4-settings \
+    xfce4-taskmanager \
+    xfce4-terminal \
+    xfconf \
+    xfdesktop \
+    xfwm4 \
+    xfwm4-themes
+# Install lightdm
+dnf5 install -y lightdm lightdm-gtk
 # Install XFCE utilities
 dnf5 install -y blueman
 
