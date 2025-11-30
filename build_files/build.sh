@@ -19,6 +19,7 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 
 ## UBLUE PACKAGES
 dnf5 -y copr enable ublue-os/packages
+dnf5 -y install just
 dnf5 -y install --repo='copr:copr.fedorainfracloud.org:ublue-os:packages' ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
 dnf5 versionlock add ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
 dnf5 -y copr disable ublue-os/packages
