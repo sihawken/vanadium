@@ -44,13 +44,12 @@ dnf5 install -y chromebook-linux-audio
 # 3. Install power and performance optimization tools
 dnf5 install -y tlp tlp-rdw zram-generator
 
+# Zram optimization
 tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
 [zram0]
 zram-size = ram * 1.5
 compression-algorithm = lz4
 EOF
-
-# Zram optimization
 
 # Niceties
 dnf5 install -y fastfetch
