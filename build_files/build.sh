@@ -35,7 +35,6 @@ fi
 
 ## MULTIMEDIA PACKAGES
 dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
-# dnf5 update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
 ## FONTS
 dnf5 install -y google-noto-sans-fonts google-noto-color-emoji-fonts
@@ -64,7 +63,8 @@ swap-priority = -1
 EOF
 
 # Create a file to limit streams to 2
-sudo tee /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf > /dev/null <<EOF
+mkdir -p /etc/systemd/system/systemd-zram-setup@zram0.service.d/
+tee /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf > /dev/null <<EOF
 [Service]
 # Set max compression streams to 2 (GalliumOS default)
 ExecStartPost=/bin/bash -c 'echo 2 > /sys/block/zram0/max_comp_streams'
