@@ -17,8 +17,8 @@ dnf5 -y copr enable sunwire/tlpui
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 # Ublue repo
-dnf -y copr enable ublue-os/packages
-dnf -y config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:packages"
+dnf5 -y copr enable ublue-os/packages
+dnf5 -y config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:packages"
 
 ## INSTALL UBLUE PACKAGES
 dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
