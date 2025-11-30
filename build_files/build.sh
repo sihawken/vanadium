@@ -13,21 +13,21 @@ set -ouex pipefail
 # Repository to enable audio support on chromebook devices
 # dnf5 -y copr enable pvermeer/chromebook-linux-audio fedora-$(rpm -E %fedora)-x86_64
 # Repository for TLPUI
-dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
-# RPMfusion repos
-dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+# dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
+# # RPMfusion repos
+# dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-## MULTIMEDIA PACKAGES
-dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
-dnf5 -y install intel-media-driver libva-intel-driver
-dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
-dnf5 -y install mesa-vdpau-drivers-freeworld
+# ## MULTIMEDIA PACKAGES
+# dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
+# dnf5 -y install intel-media-driver libva-intel-driver
+# dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
+# dnf5 -y install mesa-vdpau-drivers-freeworld
 
-## FONTS
-dnf5 install -y google-noto-sans-fonts google-noto-color-emoji-fonts
+# ## FONTS
+# dnf5 install -y google-noto-sans-fonts google-noto-color-emoji-fonts
 
-## PACKAGE MANAGEMENT
-dnf5 install -y gnome-software
+# ## PACKAGE MANAGEMENT
+# dnf5 install -y gnome-software
 
 ## CHROMEBOOK PACKAGES
 # Install Chromebook-specific keyboard configuration for hardware compatibility
@@ -38,16 +38,16 @@ dnf5 install -y gnome-software
 # dnf5 install -y chromebook-linux-audio
 
 # 3. Install power and performance optimization tools
-dnf5 install -y tlp tlp-rdw tlpui zram-generator
+# dnf5 install -y tlp tlp-rdw tlpui zram-generator
 
-## OPTIMIZATION
-# Zram optimization
-tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
-[zram0]
-zram-size = ram * 1.5
-compression-algorithm = lz4
-swap-priority = -1
-EOF
+# ## OPTIMIZATION
+# # Zram optimization
+# tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
+# [zram0]
+# zram-size = ram * 1.5
+# compression-algorithm = lz4
+# swap-priority = -1
+# EOF
 
 # Create a file to limit streams to 2
 # mkdir -p /etc/systemd/system/systemd-zram-setup@zram0.service.d/
@@ -58,23 +58,9 @@ EOF
 # EOF
 
 # Niceties
-dnf5 install -y fastfetch
-
-# WORKAROUND: Fix bootc lint error caused by ublue-os-signing
-# The package installs policy.json to /usr/etc, which is forbidden in bootc images.
-if [ -f "/usr/etc/containers/policy.json" ]; then
-    echo "Moving /usr/etc/containers/policy.json to /etc/containers/policy.json..."
-    # Ensure the destination directory exists
-    mkdir -p /etc/containers
-    # Move the file, overwriting if necessary (to enforce the ublue policy)
-    mv -f /usr/etc/containers/policy.json /etc/containers/policy.json
-    # Remove the empty directories to satisfy the linter
-    rmdir /usr/etc/containers || true
-    rmdir /usr/etc || true
-fi
+# dnf5 install -y fastfetch
 
 # Clean up dnf cache to reduce image size
-dnf5 clean -y all
+# dnf5 clean -y all
 
-systemctl enable tlp.service
-systemctl enable podman.socket
+# systemctl enable tlp.service
