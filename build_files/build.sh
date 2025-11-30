@@ -23,7 +23,7 @@ dnf5 install -y @xfce-desktop lightdm
 ## CHROMEBOOK PACKAGES
 # Install Chromebook-specific keyboard configuration for hardware compatibility
 # Note: This package handles function keys, trackpad, and media buttons.
-dnf5 install -y xkeyboard-config-chromebook
+dnf5 install -y https://github.com/sihawken/xkeyboard-config-galliumos-rpm/releases/download/5eb120c/xkeyboard-config-galliumos-1.0.0-1.fc42.x86_64.rpm
 
 # Install chromebook linux audio
 dnf5 install -y chromebook-linux-audio
