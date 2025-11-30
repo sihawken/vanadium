@@ -76,7 +76,6 @@ dnf5 install -y fastfetch
 # Clean up dnf cache to reduce image size
 dnf5 clean -y all
 
-systemctl enable systemd-zram-setup@zram0.service
 systemctl enable tlp.service
 systemctl enable podman.socket
 # Autoupdate
