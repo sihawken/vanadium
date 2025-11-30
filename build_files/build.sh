@@ -21,7 +21,7 @@ dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
 
 ## DESKTOP ENVIRONMENT
 # Install XFCE Desktop Environment and a lightweight Display Manager
-dnf5 install -y @xfce-desktop lightdm-gtk
+dnf5 install -y @xfce-desktop lightdm lightdm-gtk
 # Install XFCE utilities
 dnf5 install -y blueman
 
@@ -41,6 +41,9 @@ dnf5 install -y chromebook-linux-audio
 
 # 3. Install power and performance optimization tools
 dnf5 install -y tlp tlp-rdw zram-generator
+
+# Niceties
+dnf5 install -y neofetch
 
 # Use a COPR Example:
 #
