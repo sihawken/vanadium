@@ -38,6 +38,7 @@ dnf5 install -y chromebook-linux-audio
 # 3. Install power and performance optimization tools
 dnf5 install -y tlp tlp-rdw tlpui zram-generator
 
+## OPTIMIZATION
 # Zram optimization
 tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
 [zram0]
@@ -53,15 +54,25 @@ sudo tee /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf > 
 ExecStartPost=/bin/bash -c 'echo 2 > /sys/block/zram0/max_comp_streams'
 EOF
 
+## UBLUE OS STUFF
+if [[ "$(rpm -E %fedora)" -gt 41 ]]; then
+  dnf5 -y copr enable ublue-os/staging
+  dnf5 -y swap --repo='copr:copr.fedorainfracloud.org:ublue-os:staging' \
+    rpm-ostree rpm-ostree
+  dnf5 versionlock add rpm-ostree
+  dnf5 -y copr disable ublue-os/staging
+fi
+
+dnf5 install -y ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
+
 # Niceties
 dnf5 install -y fastfetch
 
 # Clean up dnf cache to reduce image size
 dnf5 clean -y all
 
-# Mask Plymouth Wait Service to prevent conflict/hangs
-systemctl mask plymouth-quit-wait.service
-
 systemctl enable systemd-zram-setup@zram0.service
 systemctl enable tlp.service
 systemctl enable podman.socket
+# Autoupdate
+systemctl enable rpm-ostreed-automatic.timer
