@@ -16,12 +16,12 @@ dnf5 -y copr enable pvermeer/chromebook-linux-audio
 dnf5 -y copr enable sunwire/tlpui
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-# Ublue repo
-dnf5 -y copr enable ublue-os/packages
-dnf5 -y config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:packages"
 
-## INSTALL UBLUE PACKAGES
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
+## UBLUE PACKAGES
+dnf5 -y copr enable ublue-os/packages
+dnf5 -y install --repo='copr:copr.fedorainfracloud.org:ublue-os:packages' ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
+dnf5 versionlock add ublue-os-udev-rules ublue-os-update-services ublue-os-signing ublue-os-luks ublue-os-just
+dnf5 -y copr disable ublue-os/packages
 
 # Swap rpm-ostree with ublue
 if [[ "$(rpm -E %fedora)" -gt 41 ]]; then
