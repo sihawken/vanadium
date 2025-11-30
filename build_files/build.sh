@@ -45,7 +45,7 @@ dnf5 install -y gnome-software
 ## CHROMEBOOK PACKAGES
 # Install Chromebook-specific keyboard configuration for hardware compatibility
 # Note: This package handles function keys, trackpad, and media buttons.
-dnf5 swap -y xkeyboard-config https://github.com/sihawken/xkeyboard-config-galliumos-rpm/releases/download/0272a55/xkeyboard-config-galliumos-1.0.0-1.fc42.x86_64.rpm
+dnf5 swap -y xkeyboard-config https://github.com/sihawken/xkeyboard-config-galliumos-rpm/releases/download/90dfc85/xkeyboard-config-galliumos-2.44-1.fc42.x86_64.rpm
 
 # Install chromebook linux audio
 dnf5 install -y chromebook-linux-audio
