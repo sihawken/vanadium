@@ -44,23 +44,22 @@ dnf5 install -y chromebook-linux-audio
 # 3. Install power and performance optimization tools
 dnf5 install -y tlp tlp-rdw zram-generator
 
+tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
+[zram0]
+zram-size = ram * 1.5
+compression-algorithm = lz4
+EOF
+
+# Zram optimization
+
 # Niceties
 dnf5 install -y fastfetch
 
 # Clean up dnf cache to reduce image size
 dnf5 clean -y all
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
-
-#### Example for enabling a System Unit File
-
-## ENABLE SERVICES
-systemctl set-default graphical.target
+# Mask Plymouth Wait Service to prevent conflict/hangs
+systemctl mask plymouth-quit-wait.service
 
 systemctl enable tlp.service
 systemctl enable podman.socket
