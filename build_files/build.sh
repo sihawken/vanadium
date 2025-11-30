@@ -76,6 +76,8 @@ dnf5 install -y fastfetch
 # Clean up dnf cache to reduce image size
 dnf5 clean -y all
 
+ls -R /usr/etc
+
 systemctl enable tlp.service
 systemctl enable podman.socket
 # Autoupdate
