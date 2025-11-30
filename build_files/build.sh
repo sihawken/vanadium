@@ -43,7 +43,7 @@ dnf5 install -y chromebook-linux-audio
 dnf5 install -y tlp tlp-rdw zram-generator
 
 # Niceties
-dnf5 install -y neofetch
+dnf5 install -y fastfetch
 
 # Use a COPR Example:
 #
