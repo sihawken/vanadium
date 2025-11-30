@@ -11,9 +11,9 @@ set -ouex pipefail
 
 ## REPOS
 # Repository to enable audio support on chromebook devices
-# dnf5 -y copr enable pvermeer/chromebook-linux-audio
+# dnf5 -y copr enable pvermeer/chromebook-linux-audio fedora-$(rpm -E %fedora)-x86_64
 # Repository for TLPUI
-dnf5 -y copr enable sunwire/tlpui
+dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
