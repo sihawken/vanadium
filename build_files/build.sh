@@ -35,6 +35,9 @@ fi
 
 ## MULTIMEDIA PACKAGES
 dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
+dnf5 -y install intel-media-driver libva-intel-driver
+dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
+dnf5 -y install mesa-vdpau-drivers-freeworld
 
 ## FONTS
 dnf5 install -y google-noto-sans-fonts google-noto-color-emoji-fonts
