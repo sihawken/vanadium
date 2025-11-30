@@ -11,7 +11,9 @@ set -ouex pipefail
 
 ## REPOS
 # Repository to enable audio support on chromebook devices
-dnf5 -y copr enable pvermeer/chromebook-linux-audio 
+dnf5 -y copr enable pvermeer/chromebook-linux-audio
+# Repository for TLPUI
+dnf5 -y copr enable sunwire/tlpui
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
@@ -42,7 +44,7 @@ dnf5 swap -y xkeyboard-config https://github.com/sihawken/xkeyboard-config-galli
 dnf5 install -y chromebook-linux-audio
 
 # 3. Install power and performance optimization tools
-dnf5 install -y tlp tlp-rdw zram-generator
+dnf5 install -y tlp tlp-rdw tlpui zram-generator
 
 # Zram optimization
 tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
