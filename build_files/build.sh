@@ -16,6 +16,10 @@ dnf5 -y copr enable pvermeer/chromebook-linux-audio
 ## NICE-TO-HAVE-PACKAGES
 dnf5 install -y tmux 
 
+## MULTIMEDIA PACKAGES
+dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
+dnf5 update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+
 ## DESKTOP ENVIRONMENT
 # Install XFCE Desktop Environment and a lightweight Display Manager
 dnf5 install -y @xfce-desktop lightdm-gtk
