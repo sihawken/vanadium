@@ -12,6 +12,8 @@ set -ouex pipefail
 ## REPOS
 # Repository to enable audio support on chromebook devices
 dnf5 -y copr enable pvermeer/chromebook-linux-audio 
+# RPMfusion repos
+dnf5 install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 ## NICE-TO-HAVE-PACKAGES
 dnf5 install -y tmux 
