@@ -58,5 +58,3 @@ dnf5 install -y fastfetch
 
 systemctl enable tlp.service
 systemctl enable podman.socket
-
-bootc switch ghcr.io/sihawken/vanadium
