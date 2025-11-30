@@ -12,19 +12,29 @@ set -ouex pipefail
 ## REPOS
 # Repository to enable audio support on chromebook devices
 dnf5 -y copr enable pvermeer/chromebook-linux-audio 
+# RPMfusion repos
+dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+## MULTIMEDIA PACKAGES
+dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
+# dnf5 update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
 ## DESKTOP ENVIRONMENT
 # Install XFCE Desktop Environment and a lightweight Display Manager
-dnf5 install -y @xfce-desktop lightdm
+dnf5 install -y @xfce-desktop lightdm-gtk
+# Install XFCE utilities
+dnf5 install -y blueman
 
 ## FONTS
 dnf5 install -y google-noto-sans-fonts google-noto-color-emoji-fonts
 
+## PACKAGE MANAGEMENT
+dnf5 install -y gnome-software
+
 ## CHROMEBOOK PACKAGES
 # Install Chromebook-specific keyboard configuration for hardware compatibility
 # Note: This package handles function keys, trackpad, and media buttons.
-dnf5 remove xkeyboard-config # Conflicts with the gallium os xkeyboard config
-dnf5 install -y https://github.com/sihawken/xkeyboard-config-galliumos-rpm/releases/download/5eb120c/xkeyboard-config-galliumos-1.0.0-1.fc42.x86_64.rpm
+dnf5 swap -y --allowerasing xkeyboard-config https://github.com/sihawken/xkeyboard-config-galliumos-rpm/releases/download/5eb120c/xkeyboard-config-galliumos-1.0.0-1.fc42.x86_64.rpm
 
 # Install chromebook linux audio
 dnf5 install -y chromebook-linux-audio
@@ -44,5 +54,4 @@ dnf5 install -y tlp tlp-rdw zram-generator
 ## ENABLE SERVICES
 
 systemctl enable tlp.service
-systemctl enable lightdm.service
 systemctl enable podman.socket
