@@ -19,3 +19,6 @@ enable = [
 disable = [
   "org.fedoraproject.Anaconda.Modules.Subscription",
 ]
+
+[customizations.kernel]
+append = "rootflags=compress=zstd:1"

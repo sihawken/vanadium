@@ -47,6 +47,9 @@ dnf5 install -y tlp tlp-rdw zram-generator
 # Niceties
 dnf5 install -y fastfetch
 
+# Clean up dnf cache to reduce image size
+dnf5 clean -y all
+
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
@@ -60,9 +63,3 @@ dnf5 install -y fastfetch
 
 systemctl enable tlp.service
 systemctl enable podman.socket
-
-# Configure LightDM to use the GTK greeter
-# Without this, LightDM may hang waiting for a greeter that isn't configured
-mkdir -p /etc/lightdm/lightdm.conf.d
-echo "[Seat:*]" > /etc/lightdm/lightdm.conf.d/50-greeter.conf
-echo "greeter-session=lightdm-gtk-greeter" >> /etc/lightdm/lightdm.conf.d/50-greeter.conf
