@@ -49,6 +49,7 @@ tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
 [zram0]
 zram-size = ram * 1.5
 compression-algorithm = lz4
+swap-priority = -1
 EOF
 
 # Niceties
