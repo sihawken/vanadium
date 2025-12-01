@@ -21,7 +21,7 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 
 ## CHROMEBOOK PACKAGES
 # Enables keyboard layouts for chromebooks
-# dnf5 -y swap xkeyboard-config xkeyboard-config-galliumos-rpm --allowerasing
+dnf5 -y swap xkeyboard-config xkeyboard-config-galliumos-rpm
 # # Fixes audio issues for chromebooks
 # dnf5 install -y chromebook-linux-audio
 
