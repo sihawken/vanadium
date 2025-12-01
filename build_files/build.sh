@@ -26,24 +26,79 @@ dnf5 -y swap xkeyboard-config xkeyboard-config-galliumos-rpm --allowerasing
 dnf5 install -y chromebook-linux-audio
 
 ## CINNAMON DESKTOP
-dnf5 -y install @cinnamon-desktop
+dnf5 -y install NetworkManager-adsl \
+NetworkManager-bluetooth \
+NetworkManager-iodine-gnome \
+NetworkManager-l2tp-gnome \
+NetworkManager-libreswan-gnome \
+NetworkManager-openconnect-gnome \
+NetworkManager-openvpn-gnome \
+NetworkManager-ppp \
+NetworkManager-pptp-gnome \
+NetworkManager-vpnc-gnome \
+NetworkManager-wifi \
+NetworkManager-wwan \
+abrt-desktop \
+blueman \
+cinnamon \
+cinnamon-control-center \
+cinnamon-screensaver \
+eom \
+ffmpegthumbnailer \
+firewall-config \
+gnome-calculator \
+gnome-disk-utility \
+gnome-screenshot \
+gnome-software \
+gnome-system-monitor \
+gnome-terminal \
+gstreamer1-plugins-ugly-free \
+gvfs-archive \
+gvfs-gphoto2 \
+gvfs-mtp \
+gvfs-smb \
+hexchat \
+imsettings-gsettings \
+initial-setup-gui \
+metacity \
+mpv \
+nemo-fileroller \
+nemo-image-converter \
+nemo-preview \
+nm-connection-editor \
+paper-icon-theme \
+pipewire-alsa \
+pipewire-pulseaudio \
+powerline \
+qadwaitadecorations-qt5 \
+sane-backends-drivers-scanners \
+setroubleshoot \
+shotwell \
+simple-scan \
+slick-greeter \
+slick-greeter-cinnamon \
+system-config-printer \
+thunderbird \
+tmux \
+tmux-powerline \
+transmission \
+vim-powerline \
+xawtv \
+xdg-user-dirs-gtk \
+xed \
+xfburn \
+xreader \
+wireplumber
+
+## LIGHTDM & SLICK-GREETER
 dnf -y install lightdm slick-greeter lightdm-settings
 echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.conf.d/99-slick-greeter.conf
 
 # ## MULTIMEDIA PACKAGES
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 dnf5 -y install intel-media-driver libva-intel-driver
-# dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
-# dnf5 -y install mesa-vdpau-drivers-freeworld
-
-# ## FONTS
-# dnf5 install -y google-noto-sans-fonts google-noto-color-emoji-fonts
-
-# ## PACKAGE MANAGEMENT
-# dnf5 install -y gnome-software
-
-# Install chromebook linux audio
-# dnf5 install -y chromebook-linux-audio
+dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
+dnf5 -y install mesa-vdpau-drivers-freeworld
 
 # 3. Install power and performance optimization tools
 # dnf5 install -y tlp tlp-rdw tlpui zram-generator
