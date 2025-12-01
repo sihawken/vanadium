@@ -11,11 +11,16 @@ set -ouex pipefail
 
 ## REPOS
 # Repository to enable audio support on chromebook devices
-# dnf5 -y copr enable pvermeer/chromebook-linux-audio fedora-$(rpm -E %fedora)-x86_64
+dnf5 -y copr enable pvermeer/chromebook-linux-audio fedora-$(rpm -E %fedora)-x86_64
+# Repository that adds the gallium os xkeyboard-config 
+dnf5 -y copr enable sihawken/xkeyboard-config-galliumos-rpm
 # Repository for TLPUI
-# dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
+dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
 # # RPMfusion repos
-# dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+## CHROMEBOOK PACKAGES
+dnf5 -y swap xkeyboard-config-galliumos-rpm xkeyboard-config --allowerasing
 
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
@@ -23,8 +28,8 @@ dnf -y install lightdm slick-greeter lightdm-settings
 echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.conf.d/99-slick-greeter.conf
 
 # ## MULTIMEDIA PACKAGES
-# dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
-# dnf5 -y install intel-media-driver libva-intel-driver
+dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+dnf5 -y install intel-media-driver libva-intel-driver
 # dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
 # dnf5 -y install mesa-vdpau-drivers-freeworld
 
