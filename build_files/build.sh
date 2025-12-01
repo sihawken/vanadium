@@ -20,7 +20,10 @@ dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 ## CHROMEBOOK PACKAGES
+# Enables keyboard layouts for chromebooks
 dnf5 -y swap xkeyboard-config xkeyboard-config-galliumos-rpm --allowerasing
+# Fixes audio issues for chromebooks
+dnf5 install -y chromebook-linux-audio
 
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
@@ -38,11 +41,6 @@ dnf5 -y install intel-media-driver libva-intel-driver
 
 # ## PACKAGE MANAGEMENT
 # dnf5 install -y gnome-software
-
-## CHROMEBOOK PACKAGES
-# Install Chromebook-specific keyboard configuration for hardware compatibility
-# Note: This package handles function keys, trackpad, and media buttons.
-# dnf5 swap -y xkeyboard-config https://github.com/sihawken/xkeyboard-config-galliumos-rpm/releases/download/55cd574/xkeyboard-config-galliumos-2.44-1.fc43.x86_64.rpm
 
 # Install chromebook linux audio
 # dnf5 install -y chromebook-linux-audio
