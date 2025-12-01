@@ -43,7 +43,7 @@ dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
 dnf5 -y install mesa-vdpau-drivers-freeworld
 
 # Install power and performance optimization tools
-dnf5 install -y tlp tlp-rdw tlpui zram-generator
+dnf5 install -y zram-generator
 
 ## OPTIMIZATION
 # Zram optimization
@@ -54,18 +54,8 @@ compression-algorithm = lz4
 swap-priority = -1
 EOF
 
-# # Create a file to limit streams to 2
-# mkdir -p /etc/systemd/system/systemd-zram-setup@zram0.service.d/
-# tee /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf > /dev/null <<EOF
-# [Service]
-# # Set max compression streams to 2 (GalliumOS default)
-# ExecStartPost=/bin/bash -c 'echo 2 > /sys/block/zram0/max_comp_streams'
-# EOF
-
 # Niceties
 dnf5 install -y fastfetch git
-
-# systemctl enable tlp.service
 
 # Clean up dnf cache to reduce image size
 dnf5 -y clean all
