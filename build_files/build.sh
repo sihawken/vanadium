@@ -65,7 +65,7 @@ echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.con
 # Niceties
 dnf5 install -y fastfetch
 
+# systemctl enable tlp.service
+
 # Clean up dnf cache to reduce image size
 dnf5 clean -y all
-
-systemctl enable tlp.service
