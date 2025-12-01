@@ -25,7 +25,12 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 # # Fixes audio issues for chromebooks
 # dnf5 install -y chromebook-linux-audio
 
-rpm-ostree override remove xkeyboard-config --install xkeyboard-config-galliumos-rpm
+## CHROMEBOOK AUDIO (Install UCM configuration)
+git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
+cp -a /tmp/alsa-ucm-conf-cros/ucm2 /usr/share/alsa/
+cp -a /tmp/alsa-ucm-conf-cros/overrides /usr/share/alsa/ucm2/conf.d/
+
+# rpm-ostree override remove xkeyboard-config --install xkeyboard-config-galliumos-rpm
 
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
