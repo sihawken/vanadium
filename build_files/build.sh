@@ -20,7 +20,7 @@ dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 ## CHROMEBOOK PACKAGES
-dnf5 -y swap xkeyboard-config-galliumos-rpm xkeyboard-config --allowerasing
+dnf5 -y swap xkeyboard-config xkeyboard-config-galliumos-rpm --allowerasing
 
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
