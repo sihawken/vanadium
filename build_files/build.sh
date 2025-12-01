@@ -17,6 +17,11 @@ set -ouex pipefail
 # # RPMfusion repos
 # dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
+## CINNAMON DESKTOP
+dnf5 -y install @cinnamon-desktop
+dnf -y install lightdm slick-greeter lightdm-settings
+echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.conf.d/99-slick-greeter.conf
+
 # ## MULTIMEDIA PACKAGES
 # dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
 # dnf5 -y install intel-media-driver libva-intel-driver
@@ -58,9 +63,9 @@ set -ouex pipefail
 # EOF
 
 # Niceties
-# dnf5 install -y fastfetch
+dnf5 install -y fastfetch
 
 # Clean up dnf cache to reduce image size
-# dnf5 clean -y all
+dnf5 clean -y all
 
-# systemctl enable tlp.service
+systemctl enable tlp.service
