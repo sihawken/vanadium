@@ -36,8 +36,8 @@ echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.con
 # ## MULTIMEDIA PACKAGES
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 dnf5 -y install intel-media-driver libva-intel-driver
-# dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
-# dnf5 -y install mesa-vdpau-drivers-freeworld
+dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
+dnf5 -y install mesa-vdpau-drivers-freeworld
 
 # 3. Install power and performance optimization tools
 # dnf5 install -y tlp tlp-rdw tlpui zram-generator
