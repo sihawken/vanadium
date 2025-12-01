@@ -21,13 +21,13 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 
 ## CHROMEBOOK PACKAGES
 # Enables keyboard layouts for chromebooks
-dnf5 -y swap xkeyboard-config xkeyboard-config-galliumos-rpm
+# dnf5 -y swap xkeyboard-config xkeyboard-config-galliumos-rpm
 # # Fixes audio issues for chromebooks
 # dnf5 install -y chromebook-linux-audio
 
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
-dnf5 -y remove firefox pidgin xawtv thunderbird
+dnf5 -y remove firefox pidgin xawtv thunderbird hexchat xfburn shotwell transmission
 
 ## LIGHTDM & SLICK-GREETER
 dnf -y install lightdm slick-greeter lightdm-settings
