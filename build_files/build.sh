@@ -26,69 +26,8 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 # dnf5 install -y chromebook-linux-audio
 
 ## CINNAMON DESKTOP
-dnf5 -y install NetworkManager-adsl \
-NetworkManager-bluetooth \
-NetworkManager-iodine-gnome \
-NetworkManager-l2tp-gnome \
-NetworkManager-libreswan-gnome \
-NetworkManager-openconnect-gnome \
-NetworkManager-openvpn-gnome \
-NetworkManager-ppp \
-NetworkManager-pptp-gnome \
-NetworkManager-vpnc-gnome \
-NetworkManager-wifi \
-NetworkManager-wwan \
-abrt-desktop \
-blueman \
-cinnamon \
-cinnamon-control-center \
-cinnamon-screensaver \
-eom \
-ffmpegthumbnailer \
-firewall-config \
-gnome-calculator \
-gnome-disk-utility \
-gnome-screenshot \
-gnome-software \
-gnome-system-monitor \
-gnome-terminal \
-gstreamer1-plugins-ugly-free \
-gvfs-archive \
-gvfs-gphoto2 \
-gvfs-mtp \
-gvfs-smb \
-hexchat \
-imsettings-gsettings \
-initial-setup-gui \
-metacity \
-mpv \
-nemo-fileroller \
-nemo-image-converter \
-nemo-preview \
-nm-connection-editor \
-paper-icon-theme \
-pipewire-alsa \
-pipewire-pulseaudio \
-powerline \
-qadwaitadecorations-qt5 \
-sane-backends-drivers-scanners \
-setroubleshoot \
-shotwell \
-simple-scan \
-slick-greeter \
-slick-greeter-cinnamon \
-system-config-printer \
-thunderbird \
-tmux \
-tmux-powerline \
-transmission \
-vim-powerline \
-xawtv \
-xdg-user-dirs-gtk \
-xed \
-xfburn \
-xreader \
-wireplumber
+dnf5 -y install @cinnamon-desktop
+dnf5 -y remove firefox pidgin xawtv thunderbird
 
 ## LIGHTDM & SLICK-GREETER
 dnf -y install lightdm slick-greeter lightdm-settings
