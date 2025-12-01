@@ -17,6 +17,9 @@ dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
+## CHROMEBOOK KERNEL
+dnf5 -y install --allowerasing https://download.copr.fedorainfracloud.org/results/sihawken/chromiumos-kernel/fedora-43-x86_64/09853716-kernel-chromiumos/kernel-chromiumos-6.6-1.fc43.x86_64.rpm
+
 ## CHROMEBOOK AUDIO (Install UCM configuration)
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
 cp -a /tmp/alsa-ucm-conf-cros/ucm2 /usr/share/alsa/
@@ -47,8 +50,10 @@ compression-algorithm = lz4
 swap-priority = -1
 EOF
 
+## EXTRA PACKAGES
 # Niceties
 dnf5 install -y fastfetch git
 
+## CLEAN UP
 # Clean up dnf cache to reduce image size
 dnf5 -y clean all
