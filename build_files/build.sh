@@ -10,15 +10,13 @@ set -ouex pipefail
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 ## REPOS
-# Repository that adds the gallium os xkeyboard-config 
-dnf5 -y copr enable sihawken/xkeyboard-config-galliumos-rpm
-# Repository for TLPUI
-dnf5 -y copr enable sunwire/tlpui fedora-$(rpm -E %fedora)-x86_64
+# Repository that adds the chromium os kernel 
+dnf5 -y copr enable sihawken/chromiumos-kernel-rpm
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 ## CHROMEBOOK KERNEL
-dnf5 -y install --allowerasing https://download.copr.fedorainfracloud.org/results/sihawken/chromiumos-kernel/fedora-43-x86_64/09853716-kernel-chromiumos/kernel-chromiumos-6.6-1.fc43.x86_64.rpm
+dnf5 -y install --allowerasing chromiumos-kernel
 
 ## CHROMEBOOK AUDIO (Install UCM configuration)
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
