@@ -25,6 +25,8 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 # # Fixes audio issues for chromebooks
 # dnf5 install -y chromebook-linux-audio
 
+rpm-ostree override remove xkeyboard-config --install xkeyboard-config-galliumos-rpm
+
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
 dnf5 -y remove firefox pidgin xawtv thunderbird hexchat xfburn shotwell transmission
@@ -60,7 +62,7 @@ dnf5 -y install mesa-vdpau-drivers-freeworld
 # EOF
 
 # Niceties
-dnf5 install -y fastfetch
+dnf5 install -y fastfetch git
 
 # systemctl enable tlp.service
 
