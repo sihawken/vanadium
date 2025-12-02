@@ -21,6 +21,16 @@ dnf5 -y install --allowerasing chromiumos-kernel
 
 # Ensure Initramfs is generated
 export DRACUT_NO_XATTR=1
+
+# create a shims to bypass kernel install triggering dracut/rpm-ostree
+# seems to be minimal impact, but allows progress on build
+cd /usr/lib/kernel/install.d \
+&& mv 05-rpmostree.install 05-rpmostree.install.bak \
+&& mv 50-dracut.install 50-dracut.install.bak \
+&& printf '%s\n' '#!/bin/sh' 'exit 0' > 05-rpmostree.install \
+&& printf '%s\n' '#!/bin/sh' 'exit 0' > 50-dracut.install \
+&& chmod +x  05-rpmostree.install 50-dracut.install
+
 /usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 
