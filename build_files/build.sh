@@ -26,7 +26,7 @@ cd /usr/lib/kernel/install.d \
 && printf '%s\n' '#!/bin/sh' 'exit 0' > 50-dracut.install \
 && chmod +x  05-rpmostree.install 50-dracut.install
 
-KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)
+KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
 dnf5 -y install --allowerasing chromiumos-kernel
 
 # Ensure Initramfs is generated
