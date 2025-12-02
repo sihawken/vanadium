@@ -16,11 +16,6 @@ dnf5 -y copr enable sihawken/chromiumos-kernel
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 ## CHROMEBOOK KERNEL
-KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1)
-dnf5 -y install --allowerasing chromiumos-kernel
-
-# Ensure Initramfs is generated
-export DRACUT_NO_XATTR=1
 
 # create a shims to bypass kernel install triggering dracut/rpm-ostree
 # seems to be minimal impact, but allows progress on build
@@ -31,6 +26,11 @@ cd /usr/lib/kernel/install.d \
 && printf '%s\n' '#!/bin/sh' 'exit 0' > 50-dracut.install \
 && chmod +x  05-rpmostree.install 50-dracut.install
 
+KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1)
+dnf5 -y install --allowerasing chromiumos-kernel
+
+# Ensure Initramfs is generated
+export DRACUT_NO_XATTR=1
 /usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 
