@@ -18,8 +18,11 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 ## CHROMEBOOK KERNEL
 KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1)
 dnf5 -y install --allowerasing chromiumos-kernel
-/usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible --add ostree -f /tmp/initramfs2.img
-mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img
+
+# Ensure Initramfs is generated
+export DRACUT_NO_XATTR=1
+/usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
+chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 
 ## CHROMEBOOK AUDIO (Install UCM configuration)
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
