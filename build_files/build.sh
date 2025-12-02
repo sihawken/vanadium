@@ -16,7 +16,7 @@ dnf5 -y copr enable sihawken/chromiumos-kernel
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 ## CHROMEBOOK KERNEL
-dnf5 -y install --allowerasing chromiumos-kernel
+# dnf5 -y install --allowerasing chromiumos-kernel
 
 ## CHROMEBOOK AUDIO (Install UCM configuration)
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
