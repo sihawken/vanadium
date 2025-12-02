@@ -15,6 +15,31 @@ dnf5 -y copr enable sihawken/chromiumos-kernel
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
+## CINNAMON DESKTOP
+dnf5 -y install @cinnamon-desktop
+dnf5 -y remove firefox pidgin xawtv thunderbird hexchat xfburn shotwell transmission
+
+## LIGHTDM & SLICK-GREETER
+dnf -y install lightdm slick-greeter lightdm-settings
+echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.conf.d/99-slick-greeter.conf
+
+## MULTIMEDIA PACKAGES
+dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+dnf5 -y install intel-media-driver libva-intel-driver
+dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
+dnf5 -y install mesa-vdpau-drivers-freeworld
+
+## PERFORMANCE OPTIMIZATION
+dnf5 install -y zram-generator
+
+# Zram optimization
+tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
+[zram0]
+zram-size = ram * 1.5
+compression-algorithm = lz4
+swap-priority = -1
+EOF
+
 ## CHROMEBOOK KERNEL
 
 # create a shims to bypass kernel install triggering dracut/rpm-ostree
@@ -41,31 +66,6 @@ chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
 cp -a /tmp/alsa-ucm-conf-cros/ucm2 /usr/share/alsa/
 cp -a /tmp/alsa-ucm-conf-cros/overrides /usr/share/alsa/ucm2/conf.d/
-
-## CINNAMON DESKTOP
-dnf5 -y install @cinnamon-desktop
-dnf5 -y remove firefox pidgin xawtv thunderbird hexchat xfburn shotwell transmission
-
-## LIGHTDM & SLICK-GREETER
-dnf -y install lightdm slick-greeter lightdm-settings
-echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.conf.d/99-slick-greeter.conf
-
-## MULTIMEDIA PACKAGES
-dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
-dnf5 -y install intel-media-driver libva-intel-driver
-dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
-dnf5 -y install mesa-vdpau-drivers-freeworld
-
-## PERFORMANCE OPTIMIZATION
-dnf5 install -y zram-generator
-
-# Zram optimization
-tee /etc/systemd/zram-generator.conf > /dev/null <<EOF
-[zram0]
-zram-size = ram * 1.5
-compression-algorithm = lz4
-swap-priority = -1
-EOF
 
 ## EXTRA PACKAGES
 # Niceties
