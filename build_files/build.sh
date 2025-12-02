@@ -20,7 +20,7 @@ dnf5 -y install @cinnamon-desktop
 dnf5 -y remove firefox pidgin xawtv thunderbird hexchat xfburn shotwell transmission
 
 ## LIGHTDM & SLICK-GREETER
-dnf -y install lightdm slick-greeter lightdm-settings
+dnf5 -y install lightdm slick-greeter lightdm-settings
 echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.conf.d/99-slick-greeter.conf
 
 ## MULTIMEDIA PACKAGES
