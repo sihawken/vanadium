@@ -29,6 +29,8 @@ cd /usr/lib/kernel/install.d \
 KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
 dnf5 -y install --allowerasing chromiumos-kernel
 
+ls -F /lib/modules/
+
 # Ensure Initramfs is generated
 export DRACUT_NO_XATTR=1
 /usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
