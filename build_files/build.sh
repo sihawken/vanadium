@@ -57,7 +57,8 @@ cd /usr/lib/kernel/install.d \
 # temporary attempt to install different kernel
 dnf5 -y copr enable ririko66z/zen-kernel
 dnf5 -y swap --repo='copr:copr.fedorainfracloud.org:ririko66z:zen-kernel' kernel kernel
-KERNEL_VERSION="6.17.8-300.zen1.fc43.x86_64"
+ls /lib/modules/
+KERNEL_VERSION="6.17.8.zen1.fc43.x86_64"
 
 # Ensure Initramfs is generated
 depmod -a ${KERNEL_VERSION}
