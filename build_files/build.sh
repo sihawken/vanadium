@@ -51,14 +51,8 @@ cd /usr/lib/kernel/install.d \
 && printf '%s\n' '#!/bin/sh' 'exit 0' > 50-dracut.install \
 && chmod +x  05-rpmostree.install 50-dracut.install
 
-#KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
-#dnf5 -y install --allowerasing chromiumos-kernel
-
-# temporary attempt to install different kernel
-dnf5 -y copr enable ririko66z/zen-kernel
-dnf5 -y swap --repo='copr:copr.fedorainfracloud.org:ririko66z:zen-kernel' kernel kernel
-ls /lib/modules/
-KERNEL_VERSION="6.17.9-300.zen1.fc43.x86_64"
+KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
+dnf5 -y install --allowerasing chromiumos-kernel
 
 # Ensure Initramfs is generated
 depmod -a ${KERNEL_VERSION}
