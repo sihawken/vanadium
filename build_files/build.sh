@@ -51,16 +51,19 @@ cd /usr/lib/kernel/install.d \
 && printf '%s\n' '#!/bin/sh' 'exit 0' > 50-dracut.install \
 && chmod +x  05-rpmostree.install 50-dracut.install
 
-KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)
-dnf5 -y install --allowerasing chromiumos-kernel
+#KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
+#dnf5 -y install --allowerasing chromiumos-kernel
 
-ls -F /lib/modules/${KERNEL_VERSION}-chromiumos/
+# temporary attempt to install different kernel
+dnf5 -y copr enable ririko66z/zen-kernel
+dnf5 -y install kernel --disablerepo="*" --enablerepo="copr:copr.fedorainfracloud.org:ririko66z:zen-kernel" --allowerasing
+$KERNEL_VERSION="6.17.8-300.zen1.fc43.x86_64"
 
 # Ensure Initramfs is generated
-depmod -a ${KERNEL_VERSION}-chromiumos
+depmod -a ${KERNEL_VERSION}
 export DRACUT_NO_XATTR=1
-/usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}-chromiumos" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}-chromiumos/initramfs.img"
-chmod 0600 "/lib/modules/${KERNEL_VERSION}-chromiumos/initramfs.img"
+/usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
+chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 
 ## CHROMEBOOK AUDIO (Install UCM configuration)
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
