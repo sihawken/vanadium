@@ -51,14 +51,14 @@ cd /usr/lib/kernel/install.d \
 && printf '%s\n' '#!/bin/sh' 'exit 0' > 50-dracut.install \
 && chmod +x  05-rpmostree.install 50-dracut.install
 
-KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
-dnf5 -y install --allowerasing chromiumos-kernel
+# KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
+# dnf5 -y install --allowerasing chromiumos-kernel
 
-# Ensure Initramfs is generated
-depmod -a ${KERNEL_VERSION}
-export DRACUT_NO_XATTR=1
-/usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
-chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
+# # Ensure Initramfs is generated
+# depmod -a ${KERNEL_VERSION}
+# export DRACUT_NO_XATTR=1
+# /usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
+# chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 
 ## CHROMEBOOK AUDIO (Install UCM configuration)
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
