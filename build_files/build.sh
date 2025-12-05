@@ -12,12 +12,6 @@ set -ouex pipefail
 ## DNF5 Speedup
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
-## RPM-OSTREE Workaround
-dnf5 -y copr enable ublue-os/staging
-dnf5 -y swap --repo='copr:copr.fedorainfracloud.org:ublue-os:staging' rpm-ostree rpm-ostree
-dnf5 versionlock add rpm-ostree
-dnf5 -y copr disable ublue-os/staging
-
 ## REPOS
 # Repository that adds the chromium os kernel 
 dnf5 -y copr enable sihawken/chromiumos-kernel
