@@ -68,7 +68,7 @@ dnf5 -y install --allowerasing chromiumos-kernel
 # Ensure Initramfs is generated
 depmod -a ${KERNEL_VERSION}
 export DRACUT_NO_XATTR=1
-/usr/bin/dracut --no-hostonly --debug --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img" | grep -C 5 "installing '/root"
+/usr/bin/dracut --no-hostonly --debug --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img" | grep -C 5 "/root"
 chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 
 ## CHROMEBOOK AUDIO (Install UCM configuration)
