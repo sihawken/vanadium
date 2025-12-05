@@ -28,12 +28,6 @@ dnf5 -y remove firefox pidgin xawtv thunderbird hexchat xfburn shotwell transmis
 dnf5 -y install lightdm slick-greeter lightdm-settings
 echo -e "[Seat:*]\ngreeter-session=slick-greeter" | tee /etc/lightdm/lightdm.conf.d/99-slick-greeter.conf
 
-## MULTIMEDIA PACKAGES
-dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
-dnf5 -y install intel-media-driver libva-intel-driver
-dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing
-dnf5 -y install mesa-vdpau-drivers-freeworld
-
 ## PERFORMANCE OPTIMIZATION
 dnf5 install -y zram-generator
 
