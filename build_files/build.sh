@@ -12,11 +12,19 @@ set -ouex pipefail
 ## DNF5 Speedup
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
+## RPM-OSTREE Workaround
+dnf5 -y copr enable ublue-os/staging
+dnf5 -y swap --repo='copr:copr.fedorainfracloud.org:ublue-os:staging' rpm-ostree rpm-ostree
+dnf5 versionlock add rpm-ostree
+dnf5 -y copr disable ublue-os/staging
+
 ## REPOS
 # Repository that adds the chromium os kernel 
 dnf5 -y copr enable sihawken/chromiumos-kernel
 # RPMfusion repos
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+# Terra repo
+dnf5 install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
@@ -67,6 +75,9 @@ chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
 cp -a /tmp/alsa-ucm-conf-cros/ucm2 /usr/share/alsa/
 cp -a /tmp/alsa-ucm-conf-cros/overrides /usr/share/alsa/ucm2/conf.d/
+
+## FIRMWARE COMM
+dnf5 -y install chromium-ectool
 
 ## EXTRA PACKAGES
 # Niceties
