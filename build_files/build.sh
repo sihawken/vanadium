@@ -23,6 +23,7 @@ dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/te
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
 dnf5 -y remove firefox pidgin xawtv thunderbird hexchat xfburn shotwell transmission
+dnf5 -y remove vi
 
 ## LIGHTDM & SLICK-GREETER
 dnf5 -y install lightdm slick-greeter lightdm-settings
