@@ -58,7 +58,7 @@ cp -a /tmp/alsa-ucm-conf-cros/ucm2 /usr/share/alsa/
 cp -a /tmp/alsa-ucm-conf-cros/overrides /usr/share/alsa/ucm2/conf.d/
 
 ## FIRMWARE COMM
-dnf5 -y install --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' chromium-ectool
+dnf5 -y install chromium-ectool --repo='https://repos.fyralabs.com/terra$releasever' 
 
 ## EXTRA PACKAGES
 # Niceties
