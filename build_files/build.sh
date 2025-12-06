@@ -58,7 +58,7 @@ cp -a /tmp/alsa-ucm-conf-cros/ucm2 /usr/share/alsa/
 cp -a /tmp/alsa-ucm-conf-cros/overrides /usr/share/alsa/ucm2/conf.d/
 
 ## JamesDSP audio
-dnf5 -y install qt6-qtbase qt6-qtbase-gui qt6-qtbase-common
+dnf5 -y install qt6-qtbase qt6-qtbase-gui qt6-qtsvg
 dnf5 -y install JamesDSP --repo='copr:copr.fedorainfracloud.org:arrobbins:JDSP4Linux'
 
 ## FIRMWARE COMM
