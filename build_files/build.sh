@@ -61,8 +61,8 @@ cp -a /tmp/alsa-ucm-conf-cros/overrides /usr/share/alsa/ucm2/conf.d/
 dnf5 -y install qt6-qtbase qt6-qtbase-gui qt6-qtsvg
 dnf5 -y install JamesDSP --repo='copr:copr.fedorainfracloud.org:arrobbins:JDSP4Linux'
 
-## FIRMWARE COMM
-dnf5 -y install chromium-ectool --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' 
+# ECTool for chromeOS devices
+wget -O /usr/bin/ectool https://files.tree123.org/utils/x86_64/gnu/ectool && chmod +x /usr/bin/ectool
 
 ## EXTRA PACKAGES
 # Niceties
