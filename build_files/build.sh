@@ -38,7 +38,7 @@ cp -a /tmp/alsa-ucm-conf-cros/overrides /usr/share/alsa/ucm2/conf.d/
 
 ## JamesDSP audio
 dnf5 -y install qt6-qtbase qt6-qtbase-gui qt6-qtsvg
-dnf5 -y install JamesDSP --repo='copr:copr.fedorainfracloud.org:arrobbins:JDSP4Linux'
+dnf5 -y install JamesDSP --repofrompath "JDSP4Linux,https://copr.fedorainfracloud.org/coprs/arrobbins/JDSP4Linux/repo/fedora-\$releasever/arrobbins-JDSP4Linux-fedora-\$releasever.repo" --repo "JDSP4Linux"
 
 # ECTool for chromeOS devices
 wget -O /usr/bin/ectool https://files.tree123.org/utils/x86_64/gnu/ectool && chmod +x /usr/bin/ectool
