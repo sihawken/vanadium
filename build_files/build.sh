@@ -51,7 +51,7 @@ wget -O /usr/bin/ectool https://files.tree123.org/utils/x86_64/gnu/ectool && chm
 dnf5 install -y fastfetch git
 
 ## CHROMEBOOK KERNEL
-KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
+KERNEL_VERSION=$(dnf list chromiumos-kernel -q --repofrompath "chromiumos-kernel,https://download.copr.fedorainfracloud.org/results/sihawken/chromiumos-kernel/fedora-$releasever-$basearch/" | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
 dnf5 -y install --allowerasing --nogpgcheck chromiumos-kernel --repofrompath "chromiumos-kernel,https://download.copr.fedorainfracloud.org/results/sihawken/chromiumos-kernel/fedora-$releasever-$basearch/"
 
 # Ensure Initramfs is generated
