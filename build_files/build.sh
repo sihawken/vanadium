@@ -9,6 +9,9 @@ set -ouex pipefail
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
+releasever = lsb_release -rs
+basearch = arch
+
 ## DNF5 Speedup
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
@@ -38,7 +41,7 @@ cp -a /tmp/alsa-ucm-conf-cros/overrides /usr/share/alsa/ucm2/conf.d/
 
 ## JamesDSP audio
 dnf5 -y install qt6-qtbase qt6-qtbase-gui qt6-qtsvg
-dnf5 -y install JamesDSP --repofrompath "JDSP4Linux,https://copr.fedorainfracloud.org/coprs/arrobbins/JDSP4Linux/repo/fedora-\$releasever/arrobbins-JDSP4Linux-fedora-\$releasever.repo" --repo "JDSP4Linux"
+dnf5 -y install JamesDSP --repofrompath "JDSP4Linux,https://download.copr.fedorainfracloud.org/results/arrobbins/JDSP4Linux/fedora-$releasever-$basearch/"
 
 # ECTool for chromeOS devices
 wget -O /usr/bin/ectool https://files.tree123.org/utils/x86_64/gnu/ectool && chmod +x /usr/bin/ectool
@@ -49,7 +52,7 @@ dnf5 install -y fastfetch git
 
 ## CHROMEBOOK KERNEL
 KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
-dnf5 -y install --allowerasing chromiumos-kernel --repo='copr:copr.fedorainfracloud.org:sihawken:chromiumos-kernel'
+dnf5 -y install --allowerasing chromiumos-kernel --repofrompath "chromiumos-kernel,https://download.copr.fedorainfracloud.org/results/sihawken/chromiumos-kernel/fedora-$releasever-$basearch/"
 
 # Ensure Initramfs is generated
 depmod -a ${KERNEL_VERSION}
