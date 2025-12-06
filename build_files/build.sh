@@ -12,16 +12,6 @@ set -ouex pipefail
 ## DNF5 Speedup
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
-## REPOS
-# Repository that adds the chromium os kernel 
-dnf5 -y copr enable sihawken/chromiumos-kernel
-# RPMfusion repos
-dnf5 -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-# Terra repo
-dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
-# JamesDSPForLinux
-dnf5 -y copr enable arrobbins/JDSP4Linux
-
 ## CINNAMON DESKTOP
 dnf5 -y install @cinnamon-desktop
 dnf5 -y remove firefox pidgin xawtv thunderbird hexchat xfburn shotwell transmission
@@ -41,17 +31,6 @@ compression-algorithm = lz4
 swap-priority = -1
 EOF
 
-## CHROMEBOOK KERNEL
-
-KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
-dnf5 -y install --allowerasing chromiumos-kernel
-
-# Ensure Initramfs is generated
-depmod -a ${KERNEL_VERSION}
-export DRACUT_NO_XATTR=1
-/usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
-chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
-
 ## CHROMEBOOK AUDIO (Install UCM configuration)
 git clone --depth 1 https://github.com/WeirdTreeThing/alsa-ucm-conf-cros -b standalone /tmp/alsa-ucm-conf-cros
 cp -a /tmp/alsa-ucm-conf-cros/ucm2 /usr/share/alsa/
@@ -67,6 +46,16 @@ wget -O /usr/bin/ectool https://files.tree123.org/utils/x86_64/gnu/ectool && chm
 ## EXTRA PACKAGES
 # Niceties
 dnf5 install -y fastfetch git
+
+## CHROMEBOOK KERNEL
+KERNEL_VERSION=$(dnf list chromiumos-kernel -q | awk '/chromiumos-kernel/ {print $2}' | head -n 1 | cut -d'-' -f1)-chromiumos
+dnf5 -y install --allowerasing chromiumos-kernel --repo='copr:copr.fedorainfracloud.org:sihawken:chromiumos-kernel'
+
+# Ensure Initramfs is generated
+depmod -a ${KERNEL_VERSION}
+export DRACUT_NO_XATTR=1
+/usr/bin/dracut --no-hostonly --kver "${KERNEL_VERSION}" --reproducible -v --add ostree -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
+chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
 
 ## CLEAN UP
 # Clean up dnf cache to reduce image size
