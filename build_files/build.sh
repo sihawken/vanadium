@@ -62,7 +62,7 @@ dnf5 -y install qt6-qtbase qt6-qtbase-gui qt6-qtsvg
 dnf5 -y install JamesDSP --repo='copr:copr.fedorainfracloud.org:arrobbins:JDSP4Linux'
 
 ## FIRMWARE COMM
-dnf5 -y install chromium-ectool --repo='https://repos.fyralabs.com/terra$releasever' 
+dnf5 -y install chromium-ectool --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' 
 
 ## EXTRA PACKAGES
 # Niceties
