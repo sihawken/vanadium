@@ -69,6 +69,9 @@ done
 
 CC=clang LD=ld.lld LLVM=1 akmods --force --kernels "${KERNEL}"
 
+# Print log for failed build
+ls -rt /var/cache/akmods/*/*.log | tail -n 1 | xargs cat
+
 dnf5 -y copr disable ublue-os/akmods
 
 #### KERNEL MODIFICATION FINAL
