@@ -57,6 +57,7 @@ for ITEM in "${DRIVERS[@]}"; do
         set -e
 done
 
+ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld
 akmods --force --kernels "${KERNEL}"
 
 dnf5 -y copr disable ublue-os/akmods
