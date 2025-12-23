@@ -14,3 +14,5 @@ dnf5 -y install \
     fuse squashfs-tools symlinks wl-clipboard \
     apr apr-util openssl grub2-tools-extra
 
+dnf5 -y remove firefox firefox-langpacks toolbox
+
