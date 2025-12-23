@@ -52,11 +52,12 @@ DRIVERS=(
 
 for ITEM in "${DRIVERS[@]}"; do
     echo "Processing: $ITEM..."
-    {
-        dnf5 install -y "akmod-${ITEM}-*.fc${RELEASE}.${ARCH}" || \
-        akmods --force --kernels "${KERNEL}" --kmod "${ITEM}"
-    } || echo "Warning: Failed to install or build ${ITEM}, skipping..."
+        set +e
+        dnf5 install -y "akmod-${ITEM}-*.fc${RELEASE}.${ARCH}"
+        set -e
 done
+
+akmods --force --kernels "${KERNEL}"
 
 dnf5 -y copr disable ublue-os/akmods
 
