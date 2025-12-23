@@ -33,7 +33,7 @@ KERNEL=$(dnf5 list kernel-cachyos -q | awk '/kernel-cachyos/ {print $2}' | head 
 dnf5 -y copr enable ublue-os/akmods
 
 # Framework laptop
-dnf install -y akmod-framework-laptop-*.fc"${RELEASE}"."${ARCH}"
+dnf install -y akmod-framework-laptop-*.fc"${RELEASE}"."${ARCH}" | \
 akmods --force --kernels "${KERNEL}" --kmod framework-laptop
 
 #### KERNEL MODIFICATION FINAL
