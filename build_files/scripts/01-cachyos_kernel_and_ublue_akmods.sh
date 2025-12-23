@@ -70,7 +70,7 @@ done
 CC=clang LD=ld.lld LLVM=1 akmods --force --kernels "${KERNEL}"
 
 # Print log for failed build
-ls -rt /var/cache/akmods/*/*.log | tail -n 1 | xargs cat
+cat /var/cache/akmods/xone/1000.0.0.git.1114.82438c9a-1-for-6.18.2-cachyos1.lto.fc43.x86_64.failed.log
 
 dnf5 -y copr disable ublue-os/akmods
 
