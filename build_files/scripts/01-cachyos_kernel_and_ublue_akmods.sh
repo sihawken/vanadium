@@ -67,7 +67,7 @@ for ITEM in "${DRIVERS[@]}"; do
         set -e
 done
 
-CC=clang LD=ld.lld LLVM=1 akmods --force --kernels "${KERNEL}"
+CC=clang LD=ld.lld LLVM=1 KCFLAGS="-Wno-error" akmods --force --kernels "${KERNEL}"
 
 # Print log for failed build
 cat /var/cache/akmods/xone/1000.0.0.git.1114.82438c9a-1-for-6.18.2-cachyos1.lto.fc43.x86_64.failed.log
