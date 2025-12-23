@@ -73,7 +73,7 @@ dnf5 -y copr disable ublue-os/akmods
 dnf5 -y copr enable sentry/xone
 
 set +e
-dnf5 -y install xone akmod-xone
+dnf5 -y install xpad-noone akmod-xpad-noone
 set -e
 
 dnf5 -y copr disable sentry/xone
