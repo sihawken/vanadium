@@ -31,7 +31,7 @@ dnf5 versionlock add \
     kernel-cachyos-lto-core \
     kernel-cachyos-lto-modules \
     kernel-cachyos-lto-devel \
-    kernel-cachyos-lto-devel-matched --allowerasing
+    kernel-cachyos-lto-devel-matched
 dnf5 -y copr disable bieszczaders/kernel-cachyos-lto
 
 #### UBLUE-OS AKMODS
