@@ -32,9 +32,22 @@ KERNEL=$(dnf5 list kernel-cachyos -q | awk '/kernel-cachyos/ {print $2}' | head 
 
 dnf5 -y copr enable ublue-os/akmods
 
-# Framework laptop kmod
 dnf install -y akmod-framework-laptop-*.fc"${RELEASE}"."${ARCH}" || \
 akmods --force --kernels "${KERNEL}" --kmod framework-laptop
+
+dnf install -y akmod-openrazer-*.fc"${RELEASE}"."${ARCH}" || \
+akmods --force --kernels "${KERNEL}" --kmod openrazer
+
+dnf install -y akmod-v4l2loopback-*.fc"${RELEASE}"."${ARCH}" || \
+akmods --force --kernels "${KERNEL}" --kmod v4l2loopback
+
+dnf install -y akmod-wl-*.fc"${RELEASE}"."${ARCH}" || \
+akmods --force --kernels "${KERNEL}" --kmod wl
+
+dnf install -y akmod-xone-*.fc"${RELEASE}"."${ARCH}" || \
+akmods --force --kernels "${KERNEL}" --kmod xone
+
+dnf5 -y copr disable ublue-os/akmods
 
 #### KERNEL MODIFICATION FINAL
 
