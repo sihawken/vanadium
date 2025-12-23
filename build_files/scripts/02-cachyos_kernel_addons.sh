@@ -2,8 +2,6 @@
 
 set -ouex pipefail
 
-#### CACHY OS KERNEL
-
 # Install CachyOS kernel addons
 dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
 # Required to install CachyOS settings

@@ -32,20 +32,31 @@ KERNEL=$(dnf5 list kernel-cachyos -q | awk '/kernel-cachyos/ {print $2}' | head 
 
 dnf5 -y copr enable ublue-os/akmods
 
-dnf5 install -y akmod-framework-laptop-*.fc"${RELEASE}"."${ARCH}" || \
-akmods --force --kernels "${KERNEL}" --kmod framework-laptop
+DRIVERS=(
+    "kvmfr"
+    "xone"
+    "openrazer"
+    "v4l2loopback"
+    "wl"
+    "framework-laptop"
+    "nct6687"
+    "gcadapter_oc"
+    "zenergy"
+    "vhba"
+    "gpd-fan"
+    "ayaneo-platform"
+    "ayn-platform"
+    "bmi260"
+    "ryzen-smu"
+)
 
-dnf5 install -y akmod-openrazer-*.fc"${RELEASE}"."${ARCH}" || \
-akmods --force --kernels "${KERNEL}" --kmod openrazer
-
-dnf5 install -y akmod-v4l2loopback-*.fc"${RELEASE}"."${ARCH}" || \
-akmods --force --kernels "${KERNEL}" --kmod v4l2loopback
-
-dnf5 install -y akmod-wl-*.fc"${RELEASE}"."${ARCH}" || \
-akmods --force --kernels "${KERNEL}" --kmod wl
-
-dnf5 install -y akmod-xone-*.fc"${RELEASE}"."${ARCH}" || \
-akmods --force --kernels "${KERNEL}" --kmod xone
+for ITEM in "${DRIVERS[@]}"; do
+    echo "Processing: $ITEM..."
+    {
+        dnf5 install -y "akmod-${ITEM}-*.fc${RELEASE}.${ARCH}" || \
+        akmods --force --kernels "${KERNEL}" --kmod "${ITEM}"
+    } || echo "Warning: Failed to install or build ${ITEM}, skipping..."
+done
 
 dnf5 -y copr disable ublue-os/akmods
 
