@@ -24,6 +24,9 @@ dnf5 -y install kernel-cachyos-lto kernel-cachyos-lto-devel-matched --allowerasi
 dnf5 versionlock add kernel-cachyos-lto kernel-cachyos-lto-devel-matched
 dnf5 -y copr disable bieszczaders/kernel-cachyos-lto
 
+echo "LIB MODULES"
+ls /lib/modules/
+
 #### UBLUE-OS AKMODS
 
 RELEASE=$(/usr/bin/rpm -E %fedora)
