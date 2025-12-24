@@ -38,7 +38,7 @@ EOF
 
 # 4. Set the default Starship preset
 mkdir -p /etc/skel/.config
-starship preset nerd-font-symbols -o /etc/skel/.config/starship.toml
+starship preset bracketed-segments -o /etc/skel/.config/starship.toml
 
 # 5. Set Zsh as the default shell for the image
 # On uBlue/Atomic, we modify /etc/default/useradd or just set it via usermod for existing users
