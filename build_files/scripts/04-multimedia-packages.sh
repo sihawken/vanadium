@@ -27,6 +27,8 @@ OVERRIDES=(
     "mesa-vulkan-drivers"
 )
 
+dnf5 -y install gstreamer1-plugins-bad-free-extras gstreamer1-plugin-openh264
+
 # Sync packages to the versions in the multimedia repo
 dnf5 distro-sync --skip-unavailable -y --repo='fedora-multimedia' "${OVERRIDES[@]}"
 
