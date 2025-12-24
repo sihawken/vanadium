@@ -21,6 +21,7 @@ cat <<EOF > /etc/skel/.zshrc
 # Ultramarine-style Zsh Config
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # History
 HISTSIZE=10000
