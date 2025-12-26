@@ -5,7 +5,7 @@ set -ouex pipefail
 dnf5 -y remove firefox firefox-langpacks toolbox
 
 # Category: Hardware & Peripheral Management
-dnf5 -y install libratbag-ratbagd solaar-udev openrgb-udev-rules nvme-cli smartmontools lshw powerstat intel-vaapi-driver oversteer-udev alsa-firmware android-udev-rules
+dnf5 -y install libratbag-ratbagd solaar-udev openrgb-udev-rules nvme-cli smartmontools lshw powerstat intel-vaapi-driver alsa-firmware
 
 # Category: Containers & Sandboxing
 dnf5 -y install distrobox flatpak-spawn
