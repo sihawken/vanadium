@@ -15,8 +15,7 @@ if [ $? -eq 0 ]; then
     cp -rv "$TEMP_DIR/usr/lib/firmware/"* "$TARGET_DIR/"
 
     echo "Decompressing .xz firmware files..."
-    # Some kernels require uncompressed files; others handle .xz. This ensures compatibility.
-    find "$TARGET_DIR" -name "*.xz" -exec xz -dfk {} +
+    find /usr/lib/firmware -name "*.xz" -type f -exec xz -dfk {} \;
 
     echo "Setting permissions..."
     chown -R root:root "$TARGET_DIR"
