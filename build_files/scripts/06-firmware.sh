@@ -16,7 +16,7 @@ if [ $? -eq 0 ]; then
 
     echo "Decompressing .xz firmware files..."
     # Some kernels require uncompressed files; others handle .xz. This ensures compatibility.
-    find "$TARGET_DIR" -name "*.xz" -exec xz -df {} +
+    find "$TARGET_DIR" -name "*.xz" -exec xz -dfk {} +
 
     echo "Setting permissions..."
     chown -R root:root "$TARGET_DIR"
