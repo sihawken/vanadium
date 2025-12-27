@@ -19,9 +19,20 @@ My system: Framework Laptop 13 (12th Gen Intel)
 - Ublue-os non-free firmware: https://github.com/ublue-os/bazzite-firmware-nonfree
 - Zsh default terminal with autosuggestion, syntax highlighting, and history substring terminal
 
+## Why make this?
+
+I wanted a distribution that:
+
+- Runs the new Pop-OS Cosmic DE
+- Has great hardware support and default configurations, similar to ublue-os distributions (Bazzite, Aurora, etc)
+- Has Cachy-OS performance and resource management (bore scheduler, ksmd, zram paging)
+- Default power-user zsh terminal configuration, similar to Ultramarine linux (https://ultramarine-linux.org/) 
+
 ## Installation instructions:
 
 Install any atomic Fedora distribution (Silverblue, Kinoite, Bazzite, Aurora, ...)
+
+Does not currently work with secureboot. That is on my list of improvements.
 
 Run:
 `rpm-ostree rebase ostree-image-signed:docker://ghcr.io/sihawken/vanadium`
