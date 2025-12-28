@@ -14,7 +14,7 @@ My system: Framework Laptop 13 (12th Gen Intel)
 - A small list of default packages
 - Flathub and cosmic flatpak repos replacing the default fedora flatpak repo
 - Ublue-os non-free firmware: https://github.com/ublue-os/bazzite-firmware-nonfree
-- Zsh default terminal with autosuggestion, syntax highlighting, and history substring terminal
+- Zsh default terminal with autosuggestion, syntax highlighting, and history substring.
 
 ## Why make this?
 
