@@ -2,9 +2,6 @@
 
 A ublue-os inspired distribution with cosmic de, cachy-os kernel and packages, and additional akmod hardware support. 
 
-> [!WARNING]
-> I built this image for me. Feel free to install, however any support requests may go unanswered for an extended period of time if I am unavailable. I will happily accept pull requests for any fixes or suggested improvements.
-
 ## Features:
 
 My system: Framework Laptop 13 (12th Gen Intel)
@@ -35,5 +32,9 @@ Install any atomic Fedora distribution (Silverblue, Kinoite, Bazzite, Aurora, ..
 Does not currently work with secureboot. That is on my list of improvements.
 
 Run:
+
+> [!WARNING]
+> I built this image for me. Feel free to install, however any support requests may go unanswered for an extended period of time if I am unavailable. I will happily accept pull requests for any fixes or suggested improvements.
+
 `rpm-ostree rebase ostree-image-signed:docker://ghcr.io/sihawken/vanadium`
 
