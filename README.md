@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > Thanks to the new age attestation laws enacted in California and Colorado, this disclaimer is necessary.
 > 
-> This repo will not enable age attestation. Should the underlying image have age attestation, the images in this repo will rip it out
+> This repo will not enable age attestation. Should the underlying image have age attestation, the images in this repo will rip it out.
 > 
 > This repo exists solely to comply with the Apache License. These images are provided as-is, and without warranty.
 > 
