@@ -37,6 +37,11 @@ dnf5 -y install zstd fuse squashfs-tools symlinks
 # Category: System Libraries & Low-Level Tools
 dnf5 -y install nvtop apr apr-util openssl grub2-tools-extra
 
+# Add a port of linux mint's webapp-manager
+dnf5 -y copr enable kylegospo/webapp-manager
+dnf5 -y install webapp-manager
+dnf5 -y copr disable kylegospo/webapp-manager
+
 # Remove Fedora Flatpak and related packages
 dnf5 remove -y \
     fedora-flathub-remote
